@@ -1,6 +1,6 @@
 from flask import Flask
 
 app = Flask(__name__)
-app.config.from_object('flaskr.config')
+app.config.from_object('natsugash.config')
 
 import natsugash.views

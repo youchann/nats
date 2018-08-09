@@ -8,8 +8,8 @@ def show_top_page():
 
 @app.route('/main')
 def show_main_page():
-    return render_tenplate('mainpage.html')
+    return render_template('mainpage.html')
 
-@app.route('/scorepage')
+@app.route('/score')
 def show_score_page():
     return render_template('scorepage.html')
