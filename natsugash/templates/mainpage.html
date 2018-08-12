@@ -1,4 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-  <p>ツイートの表示・ギブボタン</p>
+  {% for tweet in tweets %}
+  <p>{{ tweet }}</p>
+  {% endfor %}
 {% endblock %}
