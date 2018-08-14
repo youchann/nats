@@ -7,7 +7,8 @@ Homebrewインストール前提なので、してない人は先にインスト
 
 ### install packages  
 仮想環境とpythonのバージョン管理できる他のパッケージ（例えばvirtualenvとか）が既にあるならそっちで仮想環境作っても良いです、多分。  
-**インストールするもの**
+
+### インストールするもの
 - pyenv
 - pyenv-virtualenv  
 
@@ -17,7 +18,8 @@ Homebrewインストール前提なので、してない人は先にインスト
 - [pyenv, pyenv-virtualenv開発環境の備忘録](https://qiita.com/komi9977/items/697bfa8934e878509d13)
   - `path通すの忘れがち`
 
-**インストールできたら**  
+### インストールできたら
+
 ```bash
 # 今回は 3.6.5 で作りたいので
 $ pyenv install 3.6.5
@@ -43,7 +45,7 @@ $ pyenv versions
   3.6.5/envs/natsenv-3.6.5
 * natsenv-3.6.5 (set by /Users/iry/projects/nats/.python-version)
 ```
-**仮想環境のactivate**
+### 仮想環境のactivate
 ```bash
 $ pwd
 /Users/iry/projects/nats

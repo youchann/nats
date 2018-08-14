@@ -12,7 +12,7 @@ twitter = OAuth1Session(CK, CS, AT, ATS)
 
 @app.route('/')
 def show_index():
-    return render_template('index.html')
+    return render_template('index.html', title="nats_gash")
 
 @app.route('/main', methods=['POST'])
 def show_main():
@@ -34,7 +34,7 @@ def show_main():
     for line in timelines:
         text = line['text']
         tweets.append(text)
-    return render_template('mainpage.html', tweets=tweets)
+    return render_template('mainpage.html', tweets=tweets, title="mainpage")
 
 @app.route('/score')
 def show_score():
