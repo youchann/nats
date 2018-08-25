@@ -1,5 +1,5 @@
 from flask import request, redirect, url_for, render_template, flash
-from natsugash import app, getTwitter
+from natsugash import app, getTwitter, voicetext
 import os
 
 @app.route('/')
@@ -14,6 +14,7 @@ def show_main():
         name = 'no name'
 
     tweets = getTwitter.get_tweets(name)
+    voicetext.make_voicefile(tweets)
 
     return render_template('mainpage.html', tweets=tweets, title="mainpage")
 
