@@ -23,7 +23,7 @@ def show_main():
 
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 20,
+        'count': 30,
         'screen_name': name,
         'exclude_replies': True,
         'include_rts': False
