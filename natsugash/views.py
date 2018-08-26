@@ -2,10 +2,13 @@ from flask import request, redirect, url_for, render_template, flash
 from natsugash import app, getTwitter, voicetext
 import os
 
+# Root
 @app.route('/')
 def show_index():
     return render_template('index.html', title="nats_gash")
 
+
+# To Main
 @app.route('/main', methods=['POST'])
 def show_main():
     if request.method == 'POST':
@@ -18,9 +21,11 @@ def show_main():
 
     return render_template('mainpage.html', tweets=tweets, title="mainpage")
 
+# To Score
 @app.route('/score')
 def show_score():
     return render_template('score.html')
+
 
 # cssがキャッシュから読まれない為の関数
 @app.context_processor

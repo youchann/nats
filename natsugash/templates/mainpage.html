@@ -3,7 +3,7 @@
   {% for tweet in tweets %}
   <p>{{ tweet }}</p>
     {% if tweets[tweet] != "画像なしツイート"%}
-      <img src="{{ tweets[tweet] }}">
+      <img src="{{ tweets[tweet] }}" width="300px" style="border: dashed 5px lightgray;">
     {% endif %}
   {% endfor %}
 {% endblock %}

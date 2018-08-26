@@ -24,6 +24,8 @@ def assort_tweets (timelines):
     tweets = {}
     for line in timelines:
         text = line['text']
+        if (text.find('https') != -1):
+            text = text[:text.find('https')]
         try:
             image = line['extended_entities']['media'][0]['media_url']
             tweets[text] = image
