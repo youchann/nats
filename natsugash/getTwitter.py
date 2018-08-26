@@ -1,6 +1,6 @@
 from requests_oauthlib import OAuth1Session
 import natsugash.config as config
-import json
+import json, urllib
 
 CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
@@ -18,9 +18,20 @@ def get_tweets (name):
     }
     res = twitter.get(url, params = params)
     timelines = json.loads(res.text)
-    tweets = []
+    return timelines
+
+def assort_tweets (timelines):
+    tweets = {}
     for line in timelines:
         text = line['text']
-        tweets.append(text)
+        try:
+            image = line['extended_entities']['media'][0]['media_url']
+            tweets[text] = image
+        except KeyError:
+            tweets[text] = "画像なしツイート"
 
+    return tweets
+
+def get_tweets_for_main (name):
+    tweets = assort_tweets (get_tweets (name))
     return tweets

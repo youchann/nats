@@ -13,7 +13,7 @@ def show_main():
     else:
         name = 'no name'
 
-    tweets = getTwitter.get_tweets(name)
+    tweets = getTwitter.get_tweets_for_main(name)
     voicetext.make_voicefile(tweets)
 
     return render_template('mainpage.html', tweets=tweets, title="mainpage")

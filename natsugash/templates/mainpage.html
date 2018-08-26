@@ -2,5 +2,8 @@
 {% block body %}
   {% for tweet in tweets %}
   <p>{{ tweet }}</p>
+    {% if tweets[tweet] != "画像なしツイート"%}
+      <img src="{{ tweets[tweet] }}">
+    {% endif %}
   {% endfor %}
 {% endblock %}
