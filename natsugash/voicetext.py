@@ -9,8 +9,9 @@ def make_voicefile (tweets) :
         print(text)
 
         p = "curl 'https://api.voicetext.jp/v1/tts' \
-            -o 'natsugash/voicefiles/{0}.wav' \
+            -o 'natsugash/static/voicefiles/{0}.wav' \
             -d 'text={1}' \
             -u '{2}:' \
+            -d 'speed=130' \
             -d 'speaker=hikari'".format(k, text, API_KEY)
         os.system(p)
