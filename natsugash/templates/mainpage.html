@@ -1,9 +1,22 @@
 {% extends "layout.html" %}
 {% block body %}
-  {% for tweet in tweets %}
-  <p>{{ tweet }}</p>
-    {% if tweets[tweet] != "画像なしツイート"%}
-      <img src="{{ tweets[tweet] }}" width="300px" style="border: dashed 5px lightgray;">
-    {% endif %}
+  {% for k, v in tweets.items() %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ v['text'] }}</h5>
+            {% if v['media_type'] == "photo" %}
+              {% for i in range(v['photo_num']) %}
+              <img src="{{ v['media_src'][i + 1]}}" width="300px" class="media-border">
+              {% endfor %}
+            {% endif %}
+            {% if v['media_type'] == "video" %}
+              <video src="{{ v['media_src'][1] }}" controls width="300px" class="media-border"></video>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
   {% endfor %}
 {% endblock %}
