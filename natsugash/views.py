@@ -1,19 +1,14 @@
 from flask import request, redirect, url_for, render_template, flash
-from requests_oauthlib import OAuth1Session
-from natsugash import app
-import natsugash.config as config
-import json, os
+from natsugash import app, getTwitter, voicetext
+import os
 
-CK = config.CONSUMER_KEY
-CS = config.CONSUMER_SECRET
-AT = config.ACCESS_TOKEN
-ATS = config.ACCESS_TOKEN_SECRET
-twitter = OAuth1Session(CK, CS, AT, ATS)
-
+# Root
 @app.route('/')
 def show_index():
     return render_template('index.html', title="nats_gash")
 
+
+# To Main
 @app.route('/main', methods=['POST'])
 def show_main():
     if request.method == 'POST':
@@ -21,25 +16,18 @@ def show_main():
     else:
         name = 'no name'
 
-    url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
-    params = {
-        'count': 20,
-        'screen_name': name,
-        'exclude_replies': True,
-        'include_rts': False
-    }
-    res = twitter.get(url, params = params)
-    timelines = json.loads(res.text)
-    tweets = []
-    for line in timelines:
-        text = line['text']
-        tweets.append(text)
+    tweets = getTwitter.get_tweets_for_main(name)
+    voicetext.make_voicefile(tweets)
+
     return render_template('mainpage.html', tweets=tweets, title="mainpage")
 
+# To Score
 @app.route('/score')
 def show_score():
     return render_template('score.html')
 
+
+# cssがキャッシュから読まれない為の関数
 @app.context_processor
 def override_url_for():
     return dict(url_for=dated_url_for)
