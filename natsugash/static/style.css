@@ -2,3 +2,7 @@
   width: 900px;
   margin: 0 auto;
 }
+
+.media-border {
+  border: dashed 5px lightgray;
+}
