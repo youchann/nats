@@ -1,6 +1,7 @@
 from requests_oauthlib import OAuth1Session
 import natsugash.config as config
 import json, urllib
+import pprint
 
 CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
@@ -26,6 +27,10 @@ def assort_tweets (timelines):
         text = line['text']
         if (text.find('https') != -1):
             text = text[:text.find('https')]
+
+        if ('extended_entities' in line):
+            pprint.pprint (line['extended_entities']['media'])
+
         try:
             image = line['extended_entities']['media'][0]['media_url']
             tweets[text] = image
