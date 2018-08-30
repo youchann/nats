@@ -27,6 +27,7 @@ def assort_tweets (timelines):
     for line in timelines:
         tweet_id = 'voice' + line['id_str']
         text = line['text']
+        print(text)
         photo_num = 0
         media_type = "none"
         media_src = [""]

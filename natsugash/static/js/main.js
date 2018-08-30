@@ -6,6 +6,11 @@ $('.btn-audio-play').on('click', function() {
   $('#audio' + tweet_id)[0].play()
 })
 
+// loadingの処理（雑にやってるけどとりあえずこれで）
 $('.btn-to-mainpage').on('click', function() {
   console.log('抽出開始')
+  $('#loading').show()
+})
+$(document).ready(function() {
+  $('#loading').hide()
 })
