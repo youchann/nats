@@ -5,11 +5,14 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <div style="display: flex">
-            <h5 class="card-title">{{ v['text'] }}</h5>
-            <button type="button" class="btn btn-outline-info btn-audio-play" id="{{ k }}"><i class="fas fa-play"></i> 再生</button>
-            <audio src="static/voicefiles/{{ k }}.wav" id="audio{{ k }}"></audio>
+          <div>
+            <pre>
+              <h5 class="card-title">{{ v['text'] | safe }}</h5>
+            </pre>
           </div>
+          <button type="button" class="btn btn-outline-info btn-audio-play" id="{{ k }}"><i class="fas fa-play"></i> 再生</button>
+          <audio src="static/voicefiles/{{ k }}.wav" id="audio{{ k }}"></audio>
+          <div>
             {% if v['media_type'] == "photo" %}
               {% for i in range(v['photo_num']) %}
               <img src="{{ v['media_src'][i + 1]}}" width="300px" class="media-border">
@@ -22,5 +25,6 @@
         </div>
       </div>
     </div>
+  </div>
   {% endfor %}
 {% endblock %}
