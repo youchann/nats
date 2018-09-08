@@ -1,9 +1,15 @@
 {% extends "layout.html" %}
 {% block body %}
-<form action="main" method="POST">
+<div id="loading">
+  <div class="loading-message">
+    <img src="{{ url_for('static', filename='loading/loading_2.gif') }}" width="100">
+    <p>生成中... 15秒くらい待ってね</p>
+  </div>
+</div>
+<form action="main" method="POST" id="mainform">
   <div class="form-group">
     <input name="name" class="form-control" placeholder="@から始まるユーザIDを入力"></input>
   </div>
-  <button type="submit" class="btn btn-outline-primary btn-lg">抽出開始</button>
+  <button type="submit" class="btn btn-outline-primary btn-lg btn-to-mainpage">抽出開始</button>
 </form>
 {% endblock %}
