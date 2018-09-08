@@ -25,10 +25,9 @@ def assort_tweets (timelines):
     tweets = {}
 
     for line in timelines:
-        tweet_id = line['id_str']
+        tweet_id = 'voice' + line['id_str']
         text = line['text']
-        # if (text.find('https') != -1):
-        #     text = text[:text.find('https')]
+        print(text)
         photo_num = 0
         media_type = "none"
         media_src = [""]
@@ -45,11 +44,6 @@ def assort_tweets (timelines):
                     media_type = "video"
                     media_src.append(media['video_info']['variants'][2]['url'])
 
-        # try:
-        #     image = line['extended_entities']['media'][0]['media_url']
-        #     tweets[tweet_id] = image
-        # except KeyError:
-        #     tweets[text] = "画像なしツイート"
         tweets[tweet_id] = {
             'text' : text,
             'photo_num' : photo_num,
