@@ -1,9 +1,14 @@
 console.log('hello')
 
+let tweet_id = ''
+
 $('.btn-audio-play').on('click', function() {
   let tweet_id = $(this).attr('id')
-  console.log('click !', tweet_id)
-  $('#audio' + tweet_id)[0].play()
+  let a = new Audio('static/voicefiles/' + tweet_id + '.wav')
+  a.play()
+  a.addEventListener("ended", function(e) {
+    console.log('ended')
+  })
 })
 
 // loadingの処理（雑にやってるけどとりあえずこれで）
