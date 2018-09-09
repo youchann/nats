@@ -6,7 +6,7 @@ $('.btn-audio-play').on('click', function() {
   let tweet_id = $(this).attr('id')
   let a = new Audio('static/voicefiles/' + tweet_id + '.wav')
   a.play()
-  a.addEventListener("ended", function(e) {
+  a.addEventListener('ended', function(e) {
     console.log('ended')
   })
 })
