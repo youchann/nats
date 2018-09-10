@@ -1,1 +1,1 @@
-web: gunicorn manage:app --log-file=-
+web: python3 manage.py
