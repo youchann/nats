@@ -8,6 +8,13 @@
 </div>
 <div class="index-wrapper">
   <p class="main-title">ついーとぱっく</p>
+  {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+      {%- for msg in errors %}
+        {{ msg }}
+      {% endfor -%}
+    {% endif %}
+  {% endwith %}
   <form action="main" method="POST" id="mainform">
     <div class="form-group">
       <input name="name" class="form-control" placeholder="@から始まるユーザIDを入力"></input>
