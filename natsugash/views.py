@@ -6,6 +6,7 @@ import os, glob
 # Root
 @app.route('/')
 def show_index():
+    print('ここまできた')
     return render_template('index.html', title="nats_gash")
 
 # To Main
