@@ -19,7 +19,6 @@ def get_tweets (name):
     }
     res = twitter.get(url, params = params)
     timelines = json.loads(res.text)
-    print(timelines)
     return timelines
 
 def assort_tweets (timelines):
