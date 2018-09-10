@@ -23,10 +23,10 @@ let viewNextTweet = function () {
   if (visible_num < visible_total) {
     $(".display_tweet").eq(visible_num).css("display", "block")
     $(`.display_tweet:eq(${visible_num}) .btn-audio-play`).click()
+    $('.packman-wrapper').css('display', 'none')
   } else {
     $("#endaria").css("display", "block")
     $("#mogmog").css("display", "none")
-
   }
 }
 
