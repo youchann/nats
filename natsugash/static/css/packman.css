@@ -1,6 +1,6 @@
 .pacman {
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   position: relative;
 /*   animation: move 5s linear infinite; */
 }
@@ -34,10 +34,10 @@
   width: 0px;
   height: 0px;
   position: absolute;
-  border-top: calc(400px / 2) solid #ee3;
-  border-right: calc(400px / 2) solid transparent;
-  border-bottom: calc(400px / 2) solid #ee3;
-  border-left: calc(400px / 2) solid #ee3;
+  border-top: calc(300px / 2) solid #ee3;
+  border-left: calc(300px / 2) solid transparent;
+  border-bottom: calc(300px / 2) solid #ee3;
+  border-right: calc(300px / 2) solid #ee3;
   border-radius: 50%;
   animation: to-down 1s linear infinite;
 }
@@ -59,10 +59,10 @@
   width: 0;
   height: 0;
   position: absolute;
-  border-top: calc(400px / 2) solid #ee3;
-  border-right: calc(400px / 2) solid transparent;
-  border-bottom: calc(400px / 2) solid #ee3;
-  border-left: calc(400px / 2) solid #ee3;
+  border-top: calc(300px / 2) solid #ee3;
+  border-left: calc(300px / 2) solid transparent;
+  border-bottom: calc(300px / 2) solid #ee3;
+  border-right: calc(300px / 2) solid #ee3;
   border-radius: 50%;
 
   animation: to-up 1s linear infinite;
