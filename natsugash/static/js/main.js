@@ -31,8 +31,8 @@ $('.btn-audio-play').on('click', function() {
   let a = new Audio('static/voicefiles/' + tweet_id + '.wav')
   a.play()
   a.addEventListener('ended', function(e) {
-    $(".display_tweet").eq(visible_num).addClass("animated zoomOutDown");
-    setTimeout(viewNextTweet, 3000)
+    $(".display_tweet").eq(visible_num).addClass("animated zoomOutRight");
+    setTimeout(viewNextTweet, 2000)
   })
 })
 
