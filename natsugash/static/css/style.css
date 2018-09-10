@@ -81,19 +81,44 @@ footer {
 }
 
 
-
-/* --- mogmog --- */
-/* #mogmog {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 20000;
-} */
-/* #mogmog img{
+/* --- 終了 --- */
+#endaria{
+  display: none;
   margin: 0 auto;
-  position:fixed;
-  bottom: 0px;
-} */
-#mogmog img{
-	margin: 0 auto;
+  vertical-align: middle;
+  text-align: center;
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  margin-top: -250px;
+  margin-left: -250px;
+}
+#endaria_custom{
+  vertical-align: middle;
+  text-align: center;
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  margin-top: -110px;
+  margin-left: -200px;
+}
+
+#end{
+  /* margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center; */
+}
+#end p{
+  font-size: 55px;
+}
+#btn-top{
+  /* margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center; */
 }
