@@ -1,7 +1,9 @@
+/* フォントの指定 */
 * {
   font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
 
+/* ヘッダーとフッター */
 header {
   background: #1ca1f2;
   color: white;
@@ -11,20 +13,22 @@ footer {
   background: #1ca1f2;
 }
 
+/* ヘッダーフッターを固定してる？？ */
 .main-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
+/* index画面のメインタイトル */
 #main-title{
   text-align: center;
   font-size: 50px;
   font-weight: bold;
 }
 
+/* layoutでのbodyまとめてるやつ */
 .container_custom {
-  /* background: blue; */
   margin: 0 auto;
   vertical-align: middle;
   text-align: center;
@@ -37,6 +41,7 @@ footer {
   margin-left: -250px;
 }
 
+/* index画面の文字とかの部分をまとめた部分 */
 .index-wrapper {
   margin: 0 auto;
   vertical-align: middle;
@@ -46,8 +51,8 @@ footer {
   height: 400px;
   top: 50%;
   left: 50%;
-  margin-top: -150px;
-  margin-left: -200px;
+  margin-top: -30%;
+  margin-left: -45%;
 }
 
 /* --- loading --- */
