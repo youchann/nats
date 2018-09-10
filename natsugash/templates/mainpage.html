@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="row tweet-virtical">
+<div class="row">
   <div class="col-7">
     {% for k, v in tweets.items() %}
       <div class="row display_tweet">
@@ -35,10 +35,5 @@
 </div>
 <div class="row">
   <button type="button" class="btn btn-outline-info btn-audio-autoplay"><i class="fas fa-play"></i> 再生開始</button>
-  <div id="mogmog">
-      <img src="{{ url_for('static', filename='loading/mogmog.gif') }}">
-  </div>
-
-
 </div>
 {% endblock %}
