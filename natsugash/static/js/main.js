@@ -1,34 +1,36 @@
-
-console.log('hello')
-
 let tweet_id = ''
 let visible_num = 0
-console.log('hello')
+let visible_total = $('.display_tweet').length
 
-for (var i = 0; i < 19; i++){
+// ツイートを一つずつ表示する
+for (var i = 0; i < visible_total; i++){
   $(".display_tweet").eq(i).css("display", "none")
+  $(`.display_tweet:eq(${i}) .btn-audio-play`).css('display', 'none')
 }
 $(".display_tweet").eq(0).css("display", "block")
-console.log('hello')
 
+
+// 一括自動再生ボタンの押下時
+$('.btn-audio-autoplay').on('click', function () {
+  $('.display_tweet:eq(0) .btn-audio-play').click()
+  $(this).css('display', 'none')
+})
+
+// 各ツイートにくっついてる再生ボタンの押下時
 $('.btn-audio-play').on('click', function() {
   let tweet_id = $(this).attr('id')
-  console.log(tweet_id)
-  // let substr_tweet_id = tweet_id.substr(5)
-  // console.log(substr_tweet_id)
   let a = new Audio('static/voicefiles/' + tweet_id + '.wav')
   a.play()
   a.addEventListener('ended', function(e) {
-    console.log('ended')
     $(".display_tweet").eq(visible_num).css("display", "none")
     visible_num += 1
     $(".display_tweet").eq(visible_num).css("display", "block")
+    $(`.display_tweet:eq(${visible_num}) .btn-audio-play`).click()
   })
 })
 
 // loadingの処理（雑にやってるけどとりあえずこれで）
 $('.btn-to-mainpage').on('click', function() {
-  console.log('抽出開始')
   $('#loading').show()
 })
 $(document).ready(function() {

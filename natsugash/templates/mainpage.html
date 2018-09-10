@@ -1,11 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="row">
-  <div class="col-12">
-    <!-- <button type="button" class="btn btn-outline-info" id="to-index"><i class="fas fa-undo-alt"></i></button> -->
-      <button type="button" onclick="history.back()"　class="btn btn-outline-primary btn-lg"><i class="fas fa-undo-alt"></i>戻る</button>
-  </div>
-</div>
 <div class="row-wrapper">
   {% for k, v in tweets.items() %}
     <div class="row display_tweet">
@@ -15,14 +9,13 @@
             <div>
               <pre>
                 <h5 class="card-title">{{ v['text'] | safe }}</h5>
-                {{ k }}
               </pre>
             </div>
             <button type="button" class="btn btn-outline-info btn-audio-play" id="{{ k }}"><i class="fas fa-play"></i> 再生</button>
             <div>
               {% if v['media_type'] == "photo" %}
                 {% for i in range(v['photo_num']) %}
-                <img src="{{ v['media_src'][i + 1]}}" width="300px" class="media-border">
+                  <img src="{{ v['media_src'][i + 1]}}" width="300px" class="media-border">
                 {% endfor %}
               {% endif %}
               {% if v['media_type'] == "video" %}
@@ -34,5 +27,7 @@
       </div>
     </div>
   {% endfor %}
+  <button type="button" class="btn btn-outline-info btn-audio-autoplay"><i class="fas fa-play"></i> 再生開始</button>
+
 </div>
 {% endblock %}
