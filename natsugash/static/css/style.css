@@ -38,3 +38,21 @@
 .media-border {
   border: dashed 5px lightgray;
 }
+
+
+
+/* --- mogmog --- */
+/* #mogmog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20000;
+} */
+/* #mogmog img{
+  margin: 0 auto;
+  position:fixed;
+  bottom: 0px;
+} */
+#mogmog img{
+	margin: 0 auto;
+}
