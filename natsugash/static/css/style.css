@@ -3,22 +3,32 @@
   font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
 
-/* ヘッダーとフッター */
-header {
+.nav-color {
   background: #1ca1f2;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 60px;
+  background: #1ca1f2;
+}
+.footer p {
+  padding: 0;
+  margin: 0;
   color: white;
+  text-align: center;
 }
-footer {
-  margin-top: auto;
-  background: #1ca1f2;
+.display_tweet {
+  height: 70vh;
+  max-height: 70vh
 }
-
-/* ヘッダーフッターを固定してる？？ */
 .main-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
+} */
 
 /* index画面のメインタイトル */
 #main-title{
@@ -29,16 +39,10 @@ footer {
 
 /* layoutでのbodyまとめてるやつ */
 .container_custom {
+  /* background: blue; */
+  padding: 0 30px;
   margin: 0 auto;
-  vertical-align: middle;
-  text-align: center;
-  position: absolute;
-  width: 500px;
-  height: 500px;
-  top: 50%;
-  left: 50%;
-  margin-top: -250px;
-  margin-left: -250px;
+  width: 100%;
 }
 
 /* index画面の文字とかの部分をまとめた部分 */
@@ -53,6 +57,11 @@ footer {
   left: 50%;
   margin-top: -30%;
   margin-left: -45%;
+}
+
+/* --- media --- */
+.media-border {
+  border: dashed 5px lightgray;
 }
 
 /* --- loading --- */
@@ -80,7 +89,15 @@ footer {
   font-size: 20px;
 }
 
-/* --- media --- */
-.media-border {
-  border: dashed 5px lightgray;
+.packman-wrapper {
+  display: none;
+}
+.packman-wrapper img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.btn-audio-autoplay {
+  margin: 0 auto;
 }
