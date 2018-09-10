@@ -6,10 +6,7 @@ import os, glob
 # Root
 @app.route('/')
 def show_index():
-    print('index', glob.glob('natsugash/static/voicefiles/*.wav'))
-
     return render_template('index.html', title="nats_gash")
-
 
 # To Main
 @app.route('/main', methods=['POST'])
@@ -22,10 +19,9 @@ def show_main():
         voicefiles = glob.glob('natsugash/static/voicefiles/*.wav')
         for voicefile in voicefiles:
             os.remove(voicefile)
-            
+
     tweets = getTwitter.get_tweets_for_main(name)
     voicetext.make_voicefile(tweets)
-    print(glob.glob('natsugash/static/voicefiles/*.wav'))
     return render_template('mainpage.html', tweets=tweets, title="mainpage")
 
 # To Score

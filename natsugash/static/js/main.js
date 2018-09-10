@@ -1,6 +1,5 @@
 let tweet_id = ''
 let visible_num = 0
-
 let visible_total = $('.display_tweet').length
 
 // ツイートを一つずつ表示する
@@ -37,8 +36,9 @@ $('.btn-audio-play').on('click', function() {
   let a = new Audio('static/voicefiles/' + tweet_id + '.wav')
   a.play()
   a.addEventListener('ended', function(e) {
-    $(".display_tweet").eq(visible_num).addClass("animated zoomOutDown");
-    setTimeout(viewNextTweet, 3000)
+    $('.packman-wrapper').css('display', 'block')
+    $('.display_tweet').eq(visible_num).addClass("animated zoomOutRight")
+    setTimeout(viewNextTweet, 2000)
   })
 })
 
