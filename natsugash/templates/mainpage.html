@@ -1,33 +1,39 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="row-wrapper">
-  {% for k, v in tweets.items() %}
-    <div class="row display_tweet">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <div>
-              <pre>
+<div class="row">
+  <div class="col-7">
+    {% for k, v in tweets.items() %}
+      <div class="row display_tweet">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <div>
                 <h5 class="card-title">{{ v['text'] | safe }}</h5>
-              </pre>
-            </div>
-            <button type="button" class="btn btn-outline-info btn-audio-play" id="{{ k }}"><i class="fas fa-play"></i> 再生</button>
-            <div>
-              {% if v['media_type'] == "photo" %}
-                {% for i in range(v['photo_num']) %}
-                  <img src="{{ v['media_src'][i + 1]}}" width="300px" class="media-border">
-                {% endfor %}
-              {% endif %}
-              {% if v['media_type'] == "video" %}
-                <video src="{{ v['media_src'][1] }}" controls width="300px" class="media-border"></video>
-              {% endif %}
+              </div>
+              <button type="button" class="btn btn-outline-info btn-audio-play" id="{{ k }}"><i class="fas fa-play"></i> 再生</button>
+              <div>
+                {% if v['media_type'] == "photo" %}
+                  {% for i in range(v['photo_num']) %}
+                    <img src="{{ v['media_src'][i + 1]}}" width="300px" class="media-border">
+                  {% endfor %}
+                {% endif %}
+                {% if v['media_type'] == "video" %}
+                  <video src="{{ v['media_src'][1] }}" controls width="300px" class="media-border"></video>
+                {% endif %}
+              </div>
             </div>
           </div>
         </div>
       </div>
+    {% endfor %}
+  </div>
+  <div class="col-5">
+    <div class="packman-wrapper">
+      <img src="{{ url_for('static', filename='loading/mogumogu9.gif') }}" height="200">
     </div>
-  {% endfor %}
+  </div>
+</div>
+<div class="row">
   <button type="button" class="btn btn-outline-info btn-audio-autoplay"><i class="fas fa-play"></i> 再生開始</button>
-
 </div>
 {% endblock %}

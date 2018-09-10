@@ -18,17 +18,29 @@
 </head>
 <body>
   <div class="main-wrapper">
-    <header>
-      <p>nathugashu</p>
-    </header>
+
+    <nav class="navbar navbar-light nav-color">
+      <span class="navbar-brand" style="color: white;">もぐもぐ</span>
+    </nav>
     <div class="container_custom">
       {% block body %}
         <!-- ここに各コンテンツが入る -->
       {% endblock %}
     </div>
 
-    <footer>
-      <p>footer</p>
+    <div id="endaria">
+      <div id="endaria_custom">
+      <div id="end">
+        <p>もぐもぐ終わり</p>
+      </div>
+      <input type="button" class="btn btn-outline-info" id="btn-top" value="topへ">
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p>footer</p>
+      </div>
     </footer>
   </div>
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
