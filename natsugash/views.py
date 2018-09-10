@@ -1,11 +1,13 @@
 from flask import request, redirect, url_for, render_template, flash
 from natsugash import app, getTwitter, voicetext
-import os
+import os, glob
 
 
 # Root
 @app.route('/')
 def show_index():
+    print('index', glob.glob('natsugash/static/voicefiles/*.wav'))
+
     return render_template('index.html', title="nats_gash")
 
 
@@ -16,10 +18,14 @@ def show_main():
         name = request.form['name']
     else:
         name = 'no name'
-
+    if (glob.glob('natsugash/static/voicefiles/*.wav')):
+        voicefiles = glob.glob('natsugash/static/voicefiles/*.wav')
+        for voicefile in voicefiles:
+            os.remove(voicefile)
+            
     tweets = getTwitter.get_tweets_for_main(name)
     voicetext.make_voicefile(tweets)
-
+    print(glob.glob('natsugash/static/voicefiles/*.wav'))
     return render_template('mainpage.html', tweets=tweets, title="mainpage")
 
 # To Score

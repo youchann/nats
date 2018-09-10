@@ -1,19 +1,43 @@
-console.log('hello')
-
 let tweet_id = ''
+let visible_num = 0
 
+let visible_total = $('.display_tweet').length
+
+// ツイートを一つずつ表示する
+for (var i = 0; i < visible_total; i++){
+  $(".display_tweet").eq(i).css("display", "none")
+  $(`.display_tweet:eq(${i}) .btn-audio-play`).css('display', 'none')
+}
+$(".display_tweet").eq(0).css("display", "block")
+
+
+// 一括自動再生ボタンの押下時
+$('.btn-audio-autoplay').on('click', function () {
+  $('.display_tweet:eq(0) .btn-audio-play').click()
+  $(this).css('display', 'none')
+})
+
+let viewNextTweet = function () {
+  $(".display_tweet").eq(visible_num).css("display", "none")
+  visible_num += 1
+  $(".display_tweet").eq(visible_num).css("display", "block")
+  $(`.display_tweet:eq(${visible_num}) .btn-audio-play`).click()
+}
+
+// 各ツイートにくっついてる再生ボタンの押下時
 $('.btn-audio-play').on('click', function() {
   let tweet_id = $(this).attr('id')
+  $(".display_tweet").eq(visible_num).addClass("animated zoomOutDown");
+
   let a = new Audio('static/voicefiles/' + tweet_id + '.wav')
   a.play()
-  a.addEventListener("ended", function(e) {
-    console.log('ended')
+  a.addEventListener('ended', function(e) {
+    setTimeout(viewNextTweet, 3000)
   })
 })
 
 // loadingの処理（雑にやってるけどとりあえずこれで）
 $('.btn-to-mainpage').on('click', function() {
-  console.log('抽出開始')
   $('#loading').show()
 })
 $(document).ready(function() {
