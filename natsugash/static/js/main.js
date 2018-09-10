@@ -16,16 +16,20 @@ $('.btn-audio-autoplay').on('click', function () {
   $(this).css('display', 'none')
 })
 
+let viewNextTweet = function () {
+  $(".display_tweet").eq(visible_num).css("display", "none")
+  visible_num += 1
+  $(".display_tweet").eq(visible_num).css("display", "block")
+  $(`.display_tweet:eq(${visible_num}) .btn-audio-play`).click()
+}
+
 // 各ツイートにくっついてる再生ボタンの押下時
 $('.btn-audio-play').on('click', function() {
   let tweet_id = $(this).attr('id')
   let a = new Audio('static/voicefiles/' + tweet_id + '.wav')
   a.play()
   a.addEventListener('ended', function(e) {
-    $(".display_tweet").eq(visible_num).css("display", "none")
-    visible_num += 1
-    $(".display_tweet").eq(visible_num).css("display", "block")
-    $(`.display_tweet:eq(${visible_num}) .btn-audio-play`).click()
+    setTimeout(viewNextTweet, 3000)
   })
 })
 
