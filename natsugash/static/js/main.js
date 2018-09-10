@@ -6,9 +6,9 @@ let visible_num = 0
 console.log('hello')
 
 for (var i = 0; i < 19; i++){
-  $(".row").eq(i).css("display", "none")
+  $(".display_tweet").eq(i).css("display", "none")
 }
-$(".row").eq(0).css("display", "block")
+$(".display_tweet").eq(0).css("display", "block")
 console.log('hello')
 
 $('.btn-audio-play').on('click', function() {
@@ -20,9 +20,9 @@ $('.btn-audio-play').on('click', function() {
   a.play()
   a.addEventListener('ended', function(e) {
     console.log('ended')
-    $(".row").eq(visible_num).css("display", "none")
+    $(".display_tweet").eq(visible_num).css("display", "none")
     visible_num += 1
-    $(".row").eq(visible_num).css("display", "block")
+    $(".display_tweet").eq(visible_num).css("display", "block")
   })
 })
 
