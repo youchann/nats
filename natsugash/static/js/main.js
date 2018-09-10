@@ -1,4 +1,16 @@
 
+console.log('hello')
+
+let tweet_id = ''
+let visible_num = 0
+console.log('hello')
+
+for (var i = 0; i < 19; i++){
+  $(".row").eq(i).css("display", "none")
+}
+$(".row").eq(0).css("display", "block")
+console.log('hello')
+
 $('.btn-audio-play').on('click', function() {
   let tweet_id = $(this).attr('id')
   console.log(tweet_id)
@@ -8,7 +20,9 @@ $('.btn-audio-play').on('click', function() {
   a.play()
   a.addEventListener('ended', function(e) {
     console.log('ended')
-    $(`.row-wrapper #${tweet_id}`).css('display', 'none')
+    $(".row").eq(visible_num).css("display", "none")
+    visible_num += 1
+    $(".row").eq(visible_num).css("display", "block")
   })
 })
 
