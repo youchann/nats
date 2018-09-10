@@ -12,7 +12,7 @@ twitter = OAuth1Session(CK, CS, AT, ATS)
 def get_tweets (name):
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 10,
+        'count': 20,
         'screen_name': name,
         'exclude_replies': True,
         'include_rts': False
@@ -27,7 +27,6 @@ def assort_tweets (timelines):
     for line in timelines:
         tweet_id = 'voice' + line['id_str']
         text = line['text']
-        print(text)
         photo_num = 0
         media_type = "none"
         media_src = [""]
