@@ -3,7 +3,6 @@ console.log('hello')
 
 let tweet_id = ''
 let visible_num = 0
-console.log('hello')
 
 for (var i = 0; i < 19; i++){
   $(".display_tweet").eq(i).css("display", "none")
@@ -13,9 +12,8 @@ console.log('hello')
 
 $('.btn-audio-play').on('click', function() {
   let tweet_id = $(this).attr('id')
-  console.log(tweet_id)
-  // let substr_tweet_id = tweet_id.substr(5)
-  // console.log(substr_tweet_id)
+  $(".display_tweet").eq(visible_num).addClass("animated zoomOutDown");
+
   let a = new Audio('static/voicefiles/' + tweet_id + '.wav')
   a.play()
   a.addEventListener('ended', function(e) {
