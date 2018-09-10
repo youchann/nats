@@ -52,7 +52,7 @@ $(document).ready(function() {
 
 // topページへの遷移処理
 $('#btn-top').on('click', function() {
-  location.href='http://127.0.0.1:5000'
+  // location.href='http://127.0.0.1:5000'
   $("#endaria").css("display", "none")
   $("#mogmog").css("display", "block")
 })
