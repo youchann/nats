@@ -1,5 +1,16 @@
+header {
+  background: #1ca1f2;
+  color: white;
+}
+footer {
+  margin-top: 30px;
+  background: #1ca1f2;
+  padding: auto;
+}
+
 .container_custom {
-  width: 900px;
+  /* background: blue; */
+  width: 750px;
   margin: 0 auto;
 }
 
@@ -37,4 +48,17 @@
 /* --- media --- */
 .media-border {
   border: dashed 5px lightgray;
+}
+
+#indexpage{
+  padding-top: 30%;
+  font-family: Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka", "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  font-weight: bold;
+}
+#title{
+  text-align: center;
+  font-size: 50px;
+}
+#indexpadding{
+  padding: 100px;
 }
