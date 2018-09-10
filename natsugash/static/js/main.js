@@ -17,6 +17,7 @@ $('.btn-audio-autoplay').on('click', function () {
   $(this).css('display', 'none')
 })
 
+// interval function
 let viewNextTweet = function () {
   $(".display_tweet").eq(visible_num).css("display", "none")
   visible_num += 1
@@ -27,11 +28,10 @@ let viewNextTweet = function () {
 // 各ツイートにくっついてる再生ボタンの押下時
 $('.btn-audio-play').on('click', function() {
   let tweet_id = $(this).attr('id')
-  $(".display_tweet").eq(visible_num).addClass("animated zoomOutDown");
-
   let a = new Audio('static/voicefiles/' + tweet_id + '.wav')
   a.play()
   a.addEventListener('ended', function(e) {
+    $(".display_tweet").eq(visible_num).addClass("animated zoomOutDown");
     setTimeout(viewNextTweet, 3000)
   })
 })

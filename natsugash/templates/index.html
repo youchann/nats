@@ -6,10 +6,13 @@
     <p>生成中... 15秒くらい待ってね</p>
   </div>
 </div>
-<form action="main" method="POST" id="mainform">
-  <div class="form-group">
-    <input name="name" class="form-control" placeholder="@から始まるユーザIDを入力"></input>
-  </div>
-  <button type="submit" class="btn btn-outline-primary btn-lg btn-to-mainpage">抽出開始</button>
-</form>
+<div class="index-wrapper">
+  <p id="main-title">タイトル未定</p>
+  <form action="main" method="POST" id="mainform">
+    <div class="form-group">
+      <input name="name" class="form-control" placeholder="@から始まるユーザIDを入力"></input>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg btn-to-mainpage"><img src="{{ url_for('static', filename='indeximage/Twitterlogo2.png') }}" height=30>もぐもぐする</button>
+  </form>
+</div>
 {% endblock %}
