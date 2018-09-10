@@ -3,6 +3,7 @@
   margin: 0 auto;
 }
 
+/* --- loading --- */
 #loading {
   width: 100%;
   height: 100%;
@@ -26,6 +27,14 @@
   font-weight: bold;
   font-size: 20px;
 }
+
+/* --- tweet --- */
+/* .row-wrapper .row:nth-child(2n + 1) {
+  border: solid red 2px;
+} */
+
+
+/* --- media --- */
 .media-border {
   border: dashed 5px lightgray;
 }
