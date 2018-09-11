@@ -1,3 +1,4 @@
+from flask import Flask, render_template, redirect, url_for
 from requests_oauthlib import OAuth1Session
 import natsugash.config as config
 import json, urllib, re
@@ -12,7 +13,7 @@ twitter = OAuth1Session(CK, CS, AT, ATS)
 def get_tweets (name):
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 20,
+        'count': 15,
         'screen_name': name,
         'exclude_replies': True,
         'include_rts': False
@@ -21,7 +22,11 @@ def get_tweets (name):
     if res.status_code == 200:
         timelines = json.loads(res.text)
         return timelines
-        
+    else:
+        print('fail to access')
+        return redirect(url_for('/'))
+
+
 def remove_emoji(src_str):
     return ''.join(c for c in src_str if c not in emoji.UNICODE_EMOJI)
 
@@ -29,12 +34,14 @@ def assort_tweets (timelines):
     tweets = {}
 
     for line in timelines:
+        if line['user']['protected']:
+            print(line['user']['protected'])
+            render_template('index.html')
+
         tweet_id = 'voice' + line['id_str']
         text = line['text']
         removed_text_num = len(remove_emoji(text))
-        print('remove_text_num', removed_text_num)
         text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)", "" ,text)
-        print('text', text)
         if (removed_text_num > 0 and len(text) >= 1 and len(text) <= 139):
             photo_num = 0
             media_type = "none"
