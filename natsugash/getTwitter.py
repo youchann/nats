@@ -23,9 +23,8 @@ def get_tweets (name):
     if res.status_code == 200:
         timelines = json.loads(res.text)
         return timelines
-    else:
-        print('fail to access')
-        return redirect(url_for('/'))
+    elif res.status_code == 404
+        return False
 
 
 def remove_emoji(src_str):
