@@ -18,10 +18,13 @@ def get_tweets (name):
         'include_rts': False
     }
     res = twitter.get(url, params = params)
+
     if res.status_code == 200:
         timelines = json.loads(res.text)
         return timelines
-        
+    elif res.status_code == 404:
+        return False
+
 def remove_emoji(src_str):
     return ''.join(c for c in src_str if c not in emoji.UNICODE_EMOJI)
 
@@ -32,9 +35,8 @@ def assort_tweets (timelines):
         tweet_id = 'voice' + line['id_str']
         text = line['text']
         removed_text_num = len(remove_emoji(text))
-        print('remove_text_num', removed_text_num)
         text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)", "" ,text)
-        print('text', text)
+
         if (removed_text_num > 0 and len(text) >= 1 and len(text) <= 139):
             photo_num = 0
             media_type = "none"
@@ -61,6 +63,6 @@ def assort_tweets (timelines):
         continue
     return tweets
 
-def get_tweets_for_main (name):
-    tweets = assort_tweets (get_tweets (name))
-    return tweets
+# def get_tweets_for_main (name):
+#     tweets = assort_tweets (get_tweets (name))
+#     return tweets

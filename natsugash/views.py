@@ -2,11 +2,10 @@ from flask import request, redirect, url_for, render_template, flash
 from natsugash import app, getTwitter, voicetext
 import os, glob
 
-
 # Root
 @app.route('/')
 def show_index():
-    return render_template('index.html', title="nats_gash")
+    return render_template('index.html', title="ついーとぱっく")
 
 # To Main
 @app.route('/main', methods=['POST'])
@@ -20,9 +19,14 @@ def show_main():
         for voicefile in voicefiles:
             os.remove(voicefile)
 
-    tweets = getTwitter.get_tweets_for_main(name)
-    voicetext.make_voicefile(tweets)
-    return render_template('mainpage.html', tweets=tweets, title="mainpage")
+    getTweets = getTwitter.get_tweets(name)
+
+    if getTweets:
+        tweets = getTwitter.assort_tweets(getTweets)
+        voicetext.make_voicefile(tweets)
+        return render_template('mainpage.html', tweets=tweets, title="ついーとぱっく")
+    else:
+        return render_template('errorpage.html')
 
 # To Score
 @app.route('/score')
