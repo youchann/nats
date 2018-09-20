@@ -14,6 +14,7 @@ def show_main():
         name = request.form['name']
     else:
         name = 'no name'
+
     if (glob.glob('natsugash/static/voicefiles/*.wav')):
         voicefiles = glob.glob('natsugash/static/voicefiles/*.wav')
         for voicefile in voicefiles:

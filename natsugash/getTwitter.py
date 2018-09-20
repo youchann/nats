@@ -23,7 +23,7 @@ def get_tweets (name):
     if res.status_code == 200:
         timelines = json.loads(res.text)
         return timelines
-    elif res.status_code == 404
+    elif res.status_code == 404:
         return False
 
 
