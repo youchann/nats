@@ -12,6 +12,5 @@ def make_voicefile (tweets) :
             -d 'text={1}' \
             -u '{2}:' \
             -d 'speed=130' \
-            -d 'emotion=anger' \
-            -d 'speaker=bear'".format(k, v['text'], API_KEY)
+            -d 'speaker=hikari'".format(k, v['text'], API_KEY)
         os.system(p)
