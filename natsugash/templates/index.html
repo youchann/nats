@@ -1,18 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
-<div id="loading">
-  <div class="loading-message">
-    <img src="{{ url_for('static', filename='loading/loading.gif') }}" height="150">
-    <p>生成中... 15秒くらい待ってね</p>
-  </div>
-</div>
 <div class="index-wrapper">
   <h1 class="main-title">ついーとぱっく</h1>
   {% with errors = get_flashed_messages(category_filter=["error"]) %}
     {% if errors %}
-      {%- for msg in errors %}
+      {% for msg in errors %}
         {{ msg }}
-      {% endfor -%}
+      {% endfor %}
     {% endif %}
   {% endwith %}
   <form action="main" method="POST" id="mainform">

@@ -18,6 +18,12 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 </head>
 <body>
+  <div id="loading">
+    <div class="loading-message">
+      <img src="{{ url_for('static', filename='loading/loading.gif') }}" height="150">
+      <p>生成中... 15秒くらい待ってね</p>
+    </div>
+  </div>
   <div class="main-wrapper">
 
     <nav class="navbar navbar-light nav-color">
