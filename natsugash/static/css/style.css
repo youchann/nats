@@ -47,6 +47,11 @@
   -webkit- transform: translateY(-50%) translateX(-50%);
 }
 
+.index-wrapper input {
+  margin: 0 auto;
+  width: 80%;
+}
+
 /* --- media --- */
 .media-border {
   border: dashed 5px lightgray;
