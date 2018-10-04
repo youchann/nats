@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="index-wrapper">
+  <h1 class="main-title">ついーとぱっく</h1>
+  <button class="btn btn-primary btn-lg btn-to-mainpage"><img src="{{ url_for('static', filename='image/Twitterlogo.png') }}" height=30><a href={{oauth_url}}>認証</a></button>
+</div>
+{% endblock %}

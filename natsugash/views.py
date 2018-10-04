@@ -5,7 +5,12 @@ import os, glob
 # Root
 @app.route('/')
 def show_index():
-    return render_template('index.html', title="ついーとぱっく")
+    oauth_url = getTwitter.oath_twitter()
+    return render_template('oauth.html', title="ついーとぱっく", oauth_url = oauth_url)
+
+@app.route('/paci')
+def show_paci():
+    return render_template('paci.html')
 
 # To Main
 @app.route('/main', methods=['POST'])

@@ -3,7 +3,7 @@ let visible_num = 0
 let visible_total = $('.display_tweet').length
 
 // ツイートを一つずつ表示する
-for (var i = 0; i < visible_total; i++){
+for (var i = 0; i < visible_total; i++) {
   $(".display_tweet").eq(i).css("display", "none")
   $(`.display_tweet:eq(${i}) .btn-audio-play`).css('display', 'none')
 }
@@ -11,13 +11,13 @@ $(".display_tweet").eq(0).css("display", "block")
 
 
 // 一括自動再生ボタンの押下時
-$('.btn-audio-autoplay').on('click', function () {
+$('.btn-audio-autoplay').on('click', function() {
   $('.display_tweet:eq(0) .btn-audio-play').click()
   $(this).css('display', 'none')
 })
 
 // interval function
-let viewNextTweet = function () {
+let viewNextTweet = function() {
   $(".display_tweet").eq(visible_num).css("display", "none")
   visible_num += 1
   if (visible_num < visible_total) {

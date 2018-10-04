@@ -1,14 +1,26 @@
 from flask import Flask, render_template, redirect, url_for
 from requests_oauthlib import OAuth1Session
+from urllib.parse import parse_qsl
 import natsugash.config as config
 import json, urllib, re
 import pprint, emoji
 
 CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
-AT = config.ACCESS_TOKEN
-ATS = config.ACCESS_TOKEN_SECRET
-twitter = OAuth1Session(CK, CS, AT, ATS)
+# AT = config.ACCESS_TOKEN
+# ATS = config.ACCESS_TOKEN_SECRET
+oauth_callback = config.OAUTH_CALLBACK
+
+def oath_twitter ():
+    twitter = OAuth1Session(CK, CS)
+    response = twitter.post(
+        'https://api.twitter.com/oauth/request_token',
+        params={'oauth_callback': oauth_callback}
+    )
+    request_token = dict(parse_qsl(response.content.decode("utf-8")))
+    authenticate_url = "https://api.twitter.com/oauth/authorize"
+    authenticate_endpoint = '%s?oauth_token=%s' % (authenticate_url, request_token['oauth_token'])
+    return authenticate_endpoint
 
 def get_tweets (name):
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
