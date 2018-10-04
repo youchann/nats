@@ -6,11 +6,12 @@ import os, glob
 @app.route('/')
 def show_index():
     oauth_url = getTwitter.oath_twitter()
-    return render_template('oauth.html', title="ついーとぱっく", oauth_url = oauth_url)
+    return render_template('oauth.html', title="認証", oauth_url = oauth_url)
 
 @app.route('/paci')
 def show_paci():
-    return render_template('paci.html')
+    getTwitter.get_access_token()
+    return render_template('paci.html', title="ついーとぱっく")
 
 # To Main
 @app.route('/main', methods=['POST'])
