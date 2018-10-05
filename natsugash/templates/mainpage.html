@@ -2,17 +2,16 @@
 {% block body %}
 <div class="row">
   <div class="col-12">
-    <form action="delpac" method="POST">
+    <form action="selectTweets" method="POST">
       {% for k, v in tweets.items() %}
         <div class="row display_tweet">
           <div class="col-12">
             <div class="card">
               <div class="card-body">
                 <div>
-                  <input type="checkbox" name="delTweets" value="{{ v['id'] }}" />
+                  <input type="checkbox" name="select_tweets" value="{{ v['id'] }}" />
                   <h5 class="card-title">{{ v['text'] | safe }}</h5>
                 </div>
-                <!-- <button type="button" class="btn btn-outline-info btn-audio-play" id="{{ k }}"><i class="fas fa-play"></i> 再生</button> -->
                 <div>
                   {% if v['media_type'] == "photo" %}
                     {% for i in range(v['photo_num']) %}
@@ -28,15 +27,10 @@
           </div>
         </div>
       {% endfor %}
-      <p><input type="submit" value="送信する"></p>
+      <p><input type="submit" value="決定"></p>
     </form>
 
   </div>
-  <!-- <div class="col-5">
-    <div class="packman-wrapper">
-      <div class="pacman"></div>
-    </div>
-  </div> -->
 </div>
 <!-- <div class="row">
   <button type="button" class="btn btn-outline-info btn-audio-autoplay"><i class="fas fa-play"></i> 再生開始</button>

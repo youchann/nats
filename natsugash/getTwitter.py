@@ -9,7 +9,7 @@ CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
 # AT = config.ACCESS_TOKEN
 # ATS = config.ACCESS_TOKEN_SECRET
-oauth_callback = config.OAUTH_CALLBACK
+oauth_callback = config.OAUTH_CALLBACK_LOCAL
 
 tweets = {}
 
@@ -74,8 +74,9 @@ def del_tweets (delTweets, access_token):
         access_token['oauth_token'],
         access_token['oauth_token_secret']
     )
-    for id in delTweets:
-        twitter.post("https://api.twitter.com/1.1/statuses/destroy/{0}.json".format(id))
+    print('del_tweets', delTweets)
+    for k,v in delTweets.items():
+        twitter.post("https://api.twitter.com/1.1/statuses/destroy/{0}.json".format(v['id']))
 
 
 def remove_emoji(src_str):
@@ -105,7 +106,6 @@ def assort_tweets (timelines):
                         media_src.append(media['media_url'])
 
                     elif (media['type'] == "video"):
-                        pprint.pprint(media)
                         media_type = "video"
                         media_src.append(media['video_info']['variants'][0]['url'])
 

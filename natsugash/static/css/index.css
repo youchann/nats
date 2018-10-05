@@ -52,7 +52,7 @@
 
 
 .display_tweet {
-  
+
 }
 
 /* --- index --- */
@@ -87,14 +87,14 @@
   border: dashed 5px lightgray;
 }
 
-.packman-wrapper {
+/* .packman-wrapper {
   display: none;
-}
-.packman-wrapper img {
+} */
+/* .packman-wrapper img {
   position: absolute;
   bottom: 0;
   right: 0;
-}
+} */
 
 .btn-audio-autoplay {
   margin: 0 auto;

@@ -1,9 +1,12 @@
 from flask import request, redirect, url_for, render_template, flash, session
 from natsugash import app, getTwitter, voicetext
+import natsugash.config as config
 import os, glob
+import pyrebase
 
-
-app.secret_key = 'secretkeypacpac'
+firebase = pyrebase.initialize_app(config.FIREBASE_CONFIG)
+db = firebase.database()
+app.secret_key = '09u34gqoijalkefeqwjio4'
 
 # Root
 @app.route('/')
@@ -19,10 +22,12 @@ def show_index():
 
 @app.route('/paci')
 def show_paci():
-    access_token = getTwitter.get_access_token()
-    if access_token:
+    if not session:
+        access_token = getTwitter.get_access_token()
         session['access_token'] = access_token
-        getTweets = getTwitter.get_tweets(access_token)
+
+    if session['access_token']:
+        getTweets = getTwitter.get_tweets(session['access_token'])
         if getTweets:
             tweets = getTwitter.assort_tweets(getTweets)
             session['tweets'] = tweets
@@ -33,42 +38,54 @@ def show_paci():
         return render_template('errorpage.html')
 
 # delpac
-@app.route('/delpac', methods=['POST'])
+@app.route('/delpac')
 def show_del_tweets():
-    if request.method == 'POST':
-        voiceTweets = {}
-        delTweets = request.form.getlist('delTweets')
-        getTwitter.del_tweets(delTweets, session['access_token'])
-        for k, v in session['tweets'].items():
-            if v['id'] in delTweets:
-                voiceTweets[k] = v
-        print(voiceTweets)
-        voicetext.make_voicefile(voiceTweets)
+    voiceTweets = {}
+    delTweets = session['delTweets']
+    getTwitter.del_tweets(delTweets, session['access_token'])
+    
+    for k, v in delTweets.items():
+        voiceTweets[k] = v
 
-    return render_template('delpac.html', delTweets=voiceTweets)
+    voicetext.make_voicefile(voiceTweets)
+    db.child("tweets").push(delTweets)
+    return render_template('delpac.html')
+
+
+@app.route('/selectTweets', methods=['POST'])
+def show_select_tweets():
+    if request.method == 'POST':
+        delTweets = {}
+        selectTweets = request.form.getlist('select_tweets')
+        for k, v in session['tweets'].items():
+            if v['id'] in selectTweets:
+                delTweets[k] = v
+        print(delTweets)
+        session['delTweets'] = delTweets
+    return render_template('selectTweets.html', delTweets=delTweets)
 
 
 # To Main
-@app.route('/main', methods=['POST'])
-def show_main():
-    if request.method == 'POST':
-        name = request.form['name']
-    else:
-        name = 'no name'
-
-    if (glob.glob('natsugash/static/voicefiles/*.wav')):
-        voicefiles = glob.glob('natsugash/static/voicefiles/*.wav')
-        for voicefile in voicefiles:
-            os.remove(voicefile)
-
-    getTweets = getTwitter.get_tweets(name)
-
-    if getTweets:
-        tweets = getTwitter.assort_tweets(getTweets)
-        voicetext.make_voicefile(tweets)
-        return render_template('mainpage.html', tweets=tweets, title="ついーとぱっく")
-    else:
-        return render_template('errorpage.html')
+# @app.route('/main', methods=['POST'])
+# def show_main():
+#     if request.method == 'POST':
+#         name = request.form['name']
+#     else:
+#         name = 'no name'
+#
+#     if (glob.glob('natsugash/static/voicefiles/*.wav')):
+#         voicefiles = glob.glob('natsugash/static/voicefiles/*.wav')
+#         for voicefile in voicefiles:
+#             os.remove(voicefile)
+#
+#     getTweets = getTwitter.get_tweets(name)
+#
+#     if getTweets:
+#         tweets = getTwitter.assort_tweets(getTweets)
+#         voicetext.make_voicefile(tweets)
+#         return render_template('mainpage.html', tweets=tweets, title="ついーとぱっく")
+#     else:
+#         return render_template('errorpage.html')
 
 
 # cssがキャッシュから読まれない為の関数
