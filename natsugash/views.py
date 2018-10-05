@@ -10,8 +10,13 @@ def show_index():
 
 @app.route('/paci')
 def show_paci():
-    getTwitter.get_access_token()
-    return render_template('paci.html', title="ついーとぱっく")
+    access_token = getTwitter.get_access_token()
+    getTweets = getTwitter.get_tweets(access_token)
+    if getTweets:
+        tweets = getTwitter.assort_tweets(getTweets)
+        return render_template('mainpage.html', tweets=tweets, title="ついーとぱっく")
+    else:
+        return render_template('errorpage.html')
 
 # To Main
 @app.route('/main', methods=['POST'])

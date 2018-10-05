@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="row">
-  <div class="col-7">
+  <div class="col-8">
     {% for k, v in tweets.items() %}
       <div class="row display_tweet">
         <div class="col-12">
@@ -10,7 +10,7 @@
               <div>
                 <h5 class="card-title">{{ v['text'] | safe }}</h5>
               </div>
-              <button type="button" class="btn btn-outline-info btn-audio-play" id="{{ k }}"><i class="fas fa-play"></i> 再生</button>
+              <!-- <button type="button" class="btn btn-outline-info btn-audio-play" id="{{ k }}"><i class="fas fa-play"></i> 再生</button> -->
               <div>
                 {% if v['media_type'] == "photo" %}
                   {% for i in range(v['photo_num']) %}
@@ -27,13 +27,13 @@
       </div>
     {% endfor %}
   </div>
-  <div class="col-5">
+  <!-- <div class="col-5">
     <div class="packman-wrapper">
       <div class="pacman"></div>
     </div>
-  </div>
+  </div> -->
 </div>
-<div class="row">
+<!-- <div class="row">
   <button type="button" class="btn btn-outline-info btn-audio-autoplay"><i class="fas fa-play"></i> 再生開始</button>
-</div>
+</div> -->
 {% endblock %}

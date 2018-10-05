@@ -9,7 +9,7 @@ CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
 # AT = config.ACCESS_TOKEN
 # ATS = config.ACCESS_TOKEN_SECRET
-oauth_callback = config.OAUTH_CALLBACK
+oauth_callback = config.OAUTH_CALLBACK_LOCAL
 
 def oath_twitter ():
     twitter = OAuth1Session(CK, CS)
@@ -24,14 +24,33 @@ def oath_twitter ():
 
 def get_access_token ():
     oauth_token = request.args.get('oauth_token')
-    print(oauth_token)
+    oauth_verifier = request.args.get('oauth_verifier')
+    twitter = OAuth1Session(
+        CK,
+        CS,
+        oauth_token,
+        oauth_verifier,
+    )
 
+    response = twitter.post(
+        'https://api.twitter.com/oauth/access_token',
+        params={'oauth_verifier': oauth_verifier}
+    )
 
-def get_tweets (name):
+    access_token = dict(parse_qsl(response.content.decode("utf-8")))
+    return access_token
+
+def get_tweets (access_token):
+    print(access_token['oauth_token_secret'])
+    twitter = OAuth1Session(
+        CK,
+        CS,
+        access_token['oauth_token'],
+        access_token['oauth_token_secret']
+    )
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 15,
-        'screen_name': name,
+        'count': 50,
         'exclude_replies': True,
         'include_rts': False
     }
