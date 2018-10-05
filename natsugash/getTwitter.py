@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from requests_oauthlib import OAuth1Session
 from urllib.parse import parse_qsl
 import natsugash.config as config
@@ -11,6 +11,8 @@ CS = config.CONSUMER_SECRET
 # ATS = config.ACCESS_TOKEN_SECRET
 oauth_callback = config.OAUTH_CALLBACK
 
+tweets = {}
+
 def oath_twitter ():
     twitter = OAuth1Session(CK, CS)
     response = twitter.post(
@@ -22,11 +24,38 @@ def oath_twitter ():
     authenticate_endpoint = '%s?oauth_token=%s' % (authenticate_url, request_token['oauth_token'])
     return authenticate_endpoint
 
-def get_tweets (name):
+def get_access_token ():
+    if request.args.get('oauth_token') and request.args.get('oauth_verifier'):
+        oauth_token = request.args.get('oauth_token')
+        oauth_verifier = request.args.get('oauth_verifier')
+        twitter = OAuth1Session(
+            CK,
+            CS,
+            oauth_token,
+            oauth_verifier,
+        )
+
+        response = twitter.post(
+            'https://api.twitter.com/oauth/access_token',
+            params={'oauth_verifier': oauth_verifier}
+        )
+
+        access_token = dict(parse_qsl(response.content.decode("utf-8")))
+        return access_token
+    else:
+        return False
+
+def get_tweets (access_token):
+    twitter = OAuth1Session(
+        CK,
+        CS,
+        access_token['oauth_token'],
+        access_token['oauth_token_secret']
+    )
+
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 15,
-        'screen_name': name,
+        'count': 50,
         'exclude_replies': True,
         'include_rts': False
     }
@@ -38,19 +67,28 @@ def get_tweets (name):
     elif res.status_code == 404:
         return False
 
+def del_tweets (delTweets, access_token):
+    twitter = OAuth1Session(
+        CK,
+        CS,
+        access_token['oauth_token'],
+        access_token['oauth_token_secret']
+    )
+    for id in delTweets:
+        twitter.post("https://api.twitter.com/1.1/statuses/destroy/{0}.json".format(id))
+
 
 def remove_emoji(src_str):
     return ''.join(c for c in src_str if c not in emoji.UNICODE_EMOJI)
 
 def assort_tweets (timelines):
-    tweets = {}
 
     for line in timelines:
         if line['user']['protected']:
-            print(line['user']['protected'])
-            render_template('index.html')
+            return render_template('errorpage.html')
 
-        tweet_id = 'voice' + line['id_str']
+        tweet_id = line['id_str']
+        voice_id = 'voice' + line['id_str']
         text = line['text']
         removed_text_num = len(remove_emoji(text))
         text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+\$,%#]+)", "" ,text)
@@ -69,9 +107,10 @@ def assort_tweets (timelines):
                     elif (media['type'] == "video"):
                         pprint.pprint(media)
                         media_type = "video"
-                        media_src.append(media['video_info']['variants'][2]['url'])
+                        media_src.append(media['video_info']['variants'][0]['url'])
 
-            tweets[tweet_id] = {
+            tweets[voice_id] = {
+                'id': tweet_id,
                 'text' : text,
                 'photo_num' : photo_num,
                 'media_type' : media_type,
