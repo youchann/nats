@@ -1,7 +1,8 @@
 from flask import request, redirect, url_for, render_template, flash, session
 from natsugash import app, getTwitter, voicetext
 import natsugash.config as config
-import os, glob
+import os
+import glob
 import pyrebase
 
 firebase = pyrebase.initialize_app(config.FIREBASE_CONFIG)
@@ -9,6 +10,8 @@ db = firebase.database()
 app.secret_key = '09u34gqoijalkefeqwjio4'
 
 # Root
+
+
 @app.route('/')
 def show_index():
 
@@ -18,7 +21,8 @@ def show_index():
             os.remove(voicefile)
 
     oauth_url = getTwitter.oath_twitter()
-    return render_template('oauth.html', title="認証", oauth_url = oauth_url)
+    return render_template('oauth.html', title="認証", oauth_url=oauth_url)
+
 
 @app.route('/paci')
 def show_paci():
@@ -38,16 +42,18 @@ def show_paci():
         return render_template('errorpage.html')
 
 # delpac
+
+
 @app.route('/delpac')
 def show_del_tweets():
     voiceTweets = {}
     delTweets = session['delTweets']
     getTwitter.del_tweets(delTweets, session['access_token'])
-    
+
     for k, v in delTweets.items():
         voiceTweets[k] = v
 
-    voicetext.make_voicefile(voiceTweets)
+    # voicetext.make_voicefile(voiceTweets)
     db.child("tweets").push(delTweets)
     return render_template('delpac.html')
 
@@ -64,34 +70,13 @@ def show_select_tweets():
         session['delTweets'] = delTweets
     return render_template('selectTweets.html', delTweets=delTweets)
 
-
-# To Main
-# @app.route('/main', methods=['POST'])
-# def show_main():
-#     if request.method == 'POST':
-#         name = request.form['name']
-#     else:
-#         name = 'no name'
-#
-#     if (glob.glob('natsugash/static/voicefiles/*.wav')):
-#         voicefiles = glob.glob('natsugash/static/voicefiles/*.wav')
-#         for voicefile in voicefiles:
-#             os.remove(voicefile)
-#
-#     getTweets = getTwitter.get_tweets(name)
-#
-#     if getTweets:
-#         tweets = getTwitter.assort_tweets(getTweets)
-#         voicetext.make_voicefile(tweets)
-#         return render_template('mainpage.html', tweets=tweets, title="ついーとぱっく")
-#     else:
-#         return render_template('errorpage.html')
-
-
 # cssがキャッシュから読まれない為の関数
+
+
 @app.context_processor
 def override_url_for():
     return dict(url_for=dated_url_for)
+
 
 def dated_url_for(endpoint, **values):
     if endpoint == 'static':
