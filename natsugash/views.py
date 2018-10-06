@@ -30,10 +30,8 @@ def show_index():
 
 @app.route('/paci')
 def show_paci():
-    if session.get('access_token') == {}:
-        print('11111111')
-        access_token = getTwitter.get_access_token()
-        session['access_token'] = access_token
+    access_token = getTwitter.get_access_token()
+    session['access_token'] = access_token
 
     if session.get('access_token'):
         print('22222')
