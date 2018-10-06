@@ -1,39 +1,88 @@
-from flask import request, redirect, url_for, render_template, flash
+from flask import request, redirect, url_for, render_template, flash, session
 from natsugash import app, getTwitter, voicetext
-import os, glob
+import natsugash.config as config
+import os
+import glob
+import pyrebase
 
+firebase = pyrebase.initialize_app(config.FIREBASE_CONFIG)
+db = firebase.database()
+app.secret_key = '09u34gqoijalkefeqwjio4'
 
 # Root
+
+
 @app.route('/')
 def show_index():
-    return render_template('index.html', title="nats_gash")
+    session.pop('delTweets', None)
+    session.pop('access_token', None)
+    session.pop('tweets', None)
 
-# To Main
-@app.route('/main', methods=['POST'])
-def show_main():
-    if request.method == 'POST':
-        name = request.form['name']
-    else:
-        name = 'no name'
+
     if (glob.glob('natsugash/static/voicefiles/*.wav')):
         voicefiles = glob.glob('natsugash/static/voicefiles/*.wav')
         for voicefile in voicefiles:
             os.remove(voicefile)
 
-    tweets = getTwitter.get_tweets_for_main(name)
-    voicetext.make_voicefile(tweets)
-    return render_template('mainpage.html', tweets=tweets, title="mainpage")
+    oauth_url = getTwitter.oath_twitter()
+    return render_template('oauth.html', title="認証", oauth_url=oauth_url)
 
-# To Score
-@app.route('/score')
-def show_score():
-    return render_template('score.html')
 
+@app.route('/paci')
+def show_paci():
+    access_token = getTwitter.get_access_token()
+    session['access_token'] = access_token
+
+    if session.get('access_token'):
+        print('22222')
+        getTweets = getTwitter.get_tweets(session['access_token'])
+        if getTweets:
+            tweets = getTwitter.assort_tweets(getTweets)
+            session['tweets'] = tweets
+            return render_template('mainpage.html', tweets=tweets, title="ついーとぱっく")
+        else:
+            print('#333333')
+            return render_template('errorpage.html')
+    else:
+        print('44444')
+        return render_template('errorpage.html')
+
+# delpac
+
+
+@app.route('/delpac')
+def show_del_tweets():
+    voiceTweets = {}
+    delTweets = session['delTweets']
+    getTwitter.del_tweets(delTweets, session['access_token'])
+
+    for k, v in delTweets.items():
+        voiceTweets[k] = v
+
+    # voicetext.make_voicefile(voiceTweets)
+    db.child("tweets").push(delTweets)
+    return render_template('delpac.html')
+
+
+@app.route('/selectTweets', methods=['POST'])
+def show_select_tweets():
+    if request.method == 'POST':
+        delTweets = {}
+        selectTweets = request.form.getlist('select_tweets')
+        for k, v in session['tweets'].items():
+            if v['id'] in selectTweets:
+                delTweets[k] = v
+        print(delTweets)
+        session['delTweets'] = delTweets
+    return render_template('selectTweets.html', delTweets=delTweets)
 
 # cssがキャッシュから読まれない為の関数
+
+
 @app.context_processor
 def override_url_for():
     return dict(url_for=dated_url_for)
+
 
 def dated_url_for(endpoint, **values):
     if endpoint == 'static':

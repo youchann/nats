@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="index-wrapper">
+  <h1 class="main-title">ついーとぱっく</h1>
+  <a class="btn btn-primary" role="button" href={{oauth_url}}><img src="{{ url_for('static', filename='image/Twitterlogo.png') }}" height=30>認証</a>
+  <div class="row">
+    <div class="col-12">
+      <div class="packman-wrapper">
+        <div class="pacman"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
