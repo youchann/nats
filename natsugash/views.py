@@ -10,8 +10,6 @@ db = firebase.database()
 app.secret_key = '09u34gqoijalkefeqwjio4'
 
 # Root
-
-
 @app.route('/')
 def show_index():
 
@@ -26,9 +24,7 @@ def show_index():
 
 @app.route('/paci')
 def show_paci():
-    print('認証')
     access_token = getTwitter.get_access_token()
-    print('access_token', access_token)
     session['access_token'] = access_token
 
     if session.get('access_token'):
@@ -38,15 +34,23 @@ def show_paci():
             session['tweets'] = tweets
             return render_template('mainpage.html', tweets=tweets, title="ついーとぱっく")
         else:
-            print('#333333')
             return render_template('errorpage.html')
     else:
-        print('44444')
         return render_template('errorpage.html')
 
+# select
+@app.route('/selectTweets', methods=['POST'])
+def show_select_tweets():
+    if request.method == 'POST':
+        delTweets = {}
+        selectTweets = request.form.getlist('select_tweets')
+        for k, v in session['tweets'].items():
+            if v['id'] in selectTweets:
+                delTweets[k] = v
+        session['delTweets'] = delTweets
+    return render_template('selectTweets.html', delTweets=delTweets)
+
 # delpac
-
-
 @app.route('/delpac')
 def show_del_tweets():
     voiceTweets = {}
@@ -56,33 +60,17 @@ def show_del_tweets():
     for k, v in delTweets.items():
         voiceTweets[k] = v
 
-    # voicetext.make_voicefile(voiceTweets)
     db.child("tweets").push(delTweets)
     session.pop('delTweets', None)
     session.pop('access_token', None)
     session.pop('tweets', None)
     return render_template('delpac.html')
 
-
-@app.route('/selectTweets', methods=['POST'])
-def show_select_tweets():
-    if request.method == 'POST':
-        delTweets = {}
-        selectTweets = request.form.getlist('select_tweets')
-        for k, v in session['tweets'].items():
-            if v['id'] in selectTweets:
-                delTweets[k] = v
-        print(delTweets)
-        session['delTweets'] = delTweets
-    return render_template('selectTweets.html', delTweets=delTweets)
-
 # cssがキャッシュから読まれない為の関数
-
 
 @app.context_processor
 def override_url_for():
     return dict(url_for=dated_url_for)
-
 
 def dated_url_for(endpoint, **values):
     if endpoint == 'static':

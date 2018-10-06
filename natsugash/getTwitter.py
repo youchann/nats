@@ -23,7 +23,6 @@ def oath_twitter ():
         params={'oauth_callback': oauth_callback}
     )
     request_token = dict(parse_qsl(response.content.decode("utf-8")))
-    print('request_token', request_token)
     authenticate_url = "https://api.twitter.com/oauth/authorize"
     authenticate_endpoint = '%s?oauth_token=%s' % (authenticate_url, request_token['oauth_token'])
     return authenticate_endpoint
@@ -59,7 +58,7 @@ def get_tweets (access_token):
 
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 50,
+        'count': 150,
         'exclude_replies': True,
         'include_rts': False
     }
@@ -78,7 +77,6 @@ def del_tweets (delTweets, access_token):
         access_token['oauth_token'],
         access_token['oauth_token_secret']
     )
-    print('del_tweets', delTweets)
     for k,v in delTweets.items():
         twitter.post("https://api.twitter.com/1.1/statuses/destroy/{0}.json".format(v['id']))
 
@@ -120,7 +118,3 @@ def assort_tweets (timelines):
             }
         continue
     return tweets
-
-# def get_tweets_for_main (name):
-#     tweets = assort_tweets (get_tweets (name))
-#     return tweets
