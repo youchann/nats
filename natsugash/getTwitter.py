@@ -14,15 +14,16 @@ oauth_callback = config.OAUTH_CALLBACK
 tweets = {}
 
 def oath_twitter ():
-
-    session.clear()
-
+    session.pop('delTweets', None)
+    session.pop('access_token', None)
+    session.pop('tweets', None)
     twitter = OAuth1Session(CK, CS)
     response = twitter.post(
         'https://api.twitter.com/oauth/request_token',
         params={'oauth_callback': oauth_callback}
     )
     request_token = dict(parse_qsl(response.content.decode("utf-8")))
+    print('request_token', request_token)
     authenticate_url = "https://api.twitter.com/oauth/authorize"
     authenticate_endpoint = '%s?oauth_token=%s' % (authenticate_url, request_token['oauth_token'])
     return authenticate_endpoint
@@ -86,9 +87,9 @@ def remove_emoji(src_str):
     return ''.join(c for c in src_str if c not in emoji.UNICODE_EMOJI)
 
 def assort_tweets (timelines):
-
+    tweets = {}
     for line in timelines:
-
+        tweets = {}
         tweet_id = line['id_str']
         voice_id = 'voice' + line['id_str']
         text = line['text']
