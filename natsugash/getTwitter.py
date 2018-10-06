@@ -9,7 +9,7 @@ CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
 # AT = config.ACCESS_TOKEN
 # ATS = config.ACCESS_TOKEN_SECRET
-oauth_callback = config.OAUTH_CALLBACK_LOCAL
+oauth_callback = config.OAUTH_CALLBACK
 
 tweets = {}
 
