@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 from requests_oauthlib import OAuth1Session
 from urllib.parse import parse_qsl
 import natsugash.config as config
@@ -9,14 +9,14 @@ CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
 # AT = config.ACCESS_TOKEN
 # ATS = config.ACCESS_TOKEN_SECRET
-oauth_callback = config.OAUTH_CALLBACK
+oauth_callback = config.OAUTH_CALLBACK_LOCAL
 
 tweets = {}
 
 def oath_twitter ():
-    if session:
-        session.clear()
-    
+
+    session.clear()
+
     twitter = OAuth1Session(CK, CS)
     response = twitter.post(
         'https://api.twitter.com/oauth/request_token',
@@ -88,8 +88,6 @@ def remove_emoji(src_str):
 def assort_tweets (timelines):
 
     for line in timelines:
-        if line['user']['protected']:
-            return render_template('errorpage.html')
 
         tweet_id = line['id_str']
         voice_id = 'voice' + line['id_str']

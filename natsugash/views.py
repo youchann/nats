@@ -14,6 +14,10 @@ app.secret_key = '09u34gqoijalkefeqwjio4'
 
 @app.route('/')
 def show_index():
+    session.pop('delTweets', None)
+    session.pop('access_token', None)
+    session.pop('tweets', None)
+
 
     if (glob.glob('natsugash/static/voicefiles/*.wav')):
         voicefiles = glob.glob('natsugash/static/voicefiles/*.wav')
@@ -26,11 +30,11 @@ def show_index():
 
 @app.route('/paci')
 def show_paci():
-    if not session:
+    if session.get('access_token') == {}:
         access_token = getTwitter.get_access_token()
         session['access_token'] = access_token
 
-    if session['access_token']:
+    if session.get('access_token'):
         getTweets = getTwitter.get_tweets(session['access_token'])
         if getTweets:
             tweets = getTwitter.assort_tweets(getTweets)
