@@ -14,6 +14,9 @@ oauth_callback = config.OAUTH_CALLBACK
 tweets = {}
 
 def oath_twitter ():
+    if session:
+        session.clear()
+    
     twitter = OAuth1Session(CK, CS)
     response = twitter.post(
         'https://api.twitter.com/oauth/request_token',
