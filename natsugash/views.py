@@ -31,18 +31,22 @@ def show_index():
 @app.route('/paci')
 def show_paci():
     if session.get('access_token') == {}:
+        print('11111111')
         access_token = getTwitter.get_access_token()
         session['access_token'] = access_token
 
     if session.get('access_token'):
+        print('22222')
         getTweets = getTwitter.get_tweets(session['access_token'])
         if getTweets:
             tweets = getTwitter.assort_tweets(getTweets)
             session['tweets'] = tweets
             return render_template('mainpage.html', tweets=tweets, title="ついーとぱっく")
         else:
+            print('#333333')
             return render_template('errorpage.html')
     else:
+        print('44444')
         return render_template('errorpage.html')
 
 # delpac
