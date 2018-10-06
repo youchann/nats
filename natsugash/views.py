@@ -14,10 +14,6 @@ app.secret_key = '09u34gqoijalkefeqwjio4'
 
 @app.route('/')
 def show_index():
-    session.pop('delTweets', None)
-    session.pop('access_token', None)
-    session.pop('tweets', None)
-
 
     if (glob.glob('natsugash/static/voicefiles/*.wav')):
         voicefiles = glob.glob('natsugash/static/voicefiles/*.wav')
@@ -30,12 +26,13 @@ def show_index():
 
 @app.route('/paci')
 def show_paci():
+    print('認証')
     access_token = getTwitter.get_access_token()
+    print('access_token', access_token)
     session['access_token'] = access_token
 
     if session.get('access_token'):
-        print('22222')
-        getTweets = getTwitter.get_tweets(session['access_token'])
+        getTweets = getTwitter.get_tweets(session.get('access_token'))
         if getTweets:
             tweets = getTwitter.assort_tweets(getTweets)
             session['tweets'] = tweets
@@ -61,6 +58,9 @@ def show_del_tweets():
 
     # voicetext.make_voicefile(voiceTweets)
     db.child("tweets").push(delTweets)
+    session.pop('delTweets', None)
+    session.pop('access_token', None)
+    session.pop('tweets', None)
     return render_template('delpac.html')
 
 
