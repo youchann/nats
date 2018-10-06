@@ -88,7 +88,7 @@ def remove_emoji(src_str):
 def assort_tweets (timelines):
 
     for line in timelines:
-
+        tweets = {}
         tweet_id = line['id_str']
         voice_id = 'voice' + line['id_str']
         text = line['text']
