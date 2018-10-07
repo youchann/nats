@@ -41,7 +41,6 @@ def show_paci():
 # select
 @app.route('/selecttweets', methods=['POST'])
 def show_select_tweets():
-    print('request', request.method)
     if request.method == 'POST':
         delTweets = {}
         selectTweets = request.form.getlist('select_tweets')
