@@ -7,13 +7,15 @@ import pprint, emoji
 
 CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
-# AT = config.ACCESS_TOKEN
-# ATS = config.ACCESS_TOKEN_SECRET
-oauth_callback = config.OAUTH_CALLBACK
+oauth_callback = config.OAUTH_CALLBACK_LOCAL
 
 tweets = {}
 
 def oath_twitter ():
+    print('delTweets', session.get('delTweets'))
+    print('access_token', session.get('access_token'))
+    print('tweets', session.get('tweets'))
+
     session.pop('delTweets', None)
     session.pop('access_token', None)
     session.pop('tweets', None)
@@ -28,6 +30,7 @@ def oath_twitter ():
     return authenticate_endpoint
 
 def get_access_token ():
+    session.clear()
     if request.args.get('oauth_token') and request.args.get('oauth_verifier'):
         oauth_token = request.args.get('oauth_token')
         oauth_verifier = request.args.get('oauth_verifier')
@@ -58,7 +61,7 @@ def get_tweets (access_token):
 
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 300,
+        'count': 100,
         'exclude_replies': True,
         'include_rts': False
     }

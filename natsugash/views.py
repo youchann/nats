@@ -26,11 +26,11 @@ def show_index():
 def show_paci():
     access_token = getTwitter.get_access_token()
     session['access_token'] = access_token
-
     if session.get('access_token'):
         getTweets = getTwitter.get_tweets(session.get('access_token'))
         if getTweets:
             tweets = getTwitter.assort_tweets(getTweets)
+            session.pop('tweets',None)
             session['tweets'] = tweets
             return render_template('mainpage.html', tweets=tweets, title="ついーとぱっく")
         else:
@@ -44,7 +44,10 @@ def show_select_tweets():
     if request.method == 'POST':
         delTweets = {}
         selectTweets = request.form.getlist('select_tweets')
-        for k, v in session['tweets'].items():
+        print('selectTweets', selectTweets)
+        for k, v in session.get('tweets').items():
+            print('key', k)
+            print('valus', v)
             if v['id'] in selectTweets:
                 delTweets[k] = v
         session['delTweets'] = delTweets
@@ -61,23 +64,5 @@ def show_del_tweets():
         voiceTweets[k] = v
 
     db.child("tweets").push(delTweets)
-    session.pop('delTweets', None)
-    session.pop('access_token', None)
-    session.pop('tweets', None)
+    session.clear()
     return render_template('delpac.html')
-
-# cssがキャッシュから読まれない為の関数
-
-@app.context_processor
-def override_url_for():
-    return dict(url_for=dated_url_for)
-
-def dated_url_for(endpoint, **values):
-    if endpoint == 'static':
-        filename = values.get('filename', None)
-        if filename:
-            file_path = os.path.join(app.root_path,
-                                     endpoint, filename)
-            values['q'] = int(os.stat(file_path).st_mtime)
-
-    return url_for(endpoint, **values)
