@@ -42,7 +42,7 @@ def show_paci():
 @app.route('/selecttweets')
 def show_select_tweets():
     delTweets = {}
-    selectTweets = request.form.getlist('select_tweets')
+    selectTweets = request.args.getlist('select_tweets')
     print('selectTweets', selectTweets)
     for k, v in session.get('tweets').items():
         print('key', k)
