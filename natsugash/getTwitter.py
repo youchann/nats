@@ -7,7 +7,7 @@ import pprint, emoji
 
 CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
-oauth_callback = config.OAUTH_CALLBACK_LOCAL
+oauth_callback = config.OAUTH_CALLBACK
 
 def oath_twitter ():
     print('delTweets', session.get('delTweets'))
@@ -59,7 +59,7 @@ def get_tweets (access_token):
 
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 50,
+        'count': 150,
         'exclude_replies': True,
         'include_rts': False
     }
