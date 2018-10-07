@@ -39,7 +39,7 @@ def show_paci():
         return render_template('errorpage.html')
 
 # select
-@app.route('/selecttweets', methods=['POST'])
+@app.route('/selecttweets')
 def show_select_tweets():
     if request.method == 'POST':
         delTweets = {}
