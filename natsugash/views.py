@@ -39,10 +39,10 @@ def show_paci():
         return render_template('errorpage.html')
 
 # select
-@app.route('/selecttweets')
+@app.route('/selecttweets', methods=["POST"])
 def show_select_tweets():
     delTweets = {}
-    selectTweets = request.args.getlist('select_tweets')
+    selectTweets = request.form.getlist('select_tweets')
     print('selectTweets', selectTweets)
     for k, v in session.get('tweets').items():
         print('key', k)

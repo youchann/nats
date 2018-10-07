@@ -28,7 +28,6 @@ def oath_twitter ():
     return authenticate_endpoint
 
 def get_access_token ():
-    session.clear()
     if request.args.get('oauth_token') and request.args.get('oauth_verifier'):
         oauth_token = request.args.get('oauth_token')
         oauth_verifier = request.args.get('oauth_verifier')
@@ -45,6 +44,7 @@ def get_access_token ():
         )
 
         access_token = dict(parse_qsl(response.content.decode("utf-8")))
+        print(access_token)
         return access_token
     else:
         return False
@@ -59,7 +59,7 @@ def get_tweets (access_token):
 
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 150,
+        'count': 50,
         'exclude_replies': True,
         'include_rts': False
     }
