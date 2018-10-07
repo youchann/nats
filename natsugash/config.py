@@ -1,6 +1,6 @@
 CONSUMER_KEY = 'YkrPagy7lReYHZ9YWaHTYxp7v'
 CONSUMER_SECRET = 'o7EfCixLKOtarJ8lv0YCSoGKcMcEaA29T1gJ1yh00UmXkCOMMA'
-OAUTH_CALLBACK = 'http://tweetpac.herokuapp.com/paci'
+OAUTH_CALLBACK = 'https://tweetpac.herokuapp.com/paci'
 OAUTH_CALLBACK_LOCAL = 'http://127.0.0.1:5000/paci'
 VOICETEXT_API_KEY = "13j7vr127iem66cw"
 
