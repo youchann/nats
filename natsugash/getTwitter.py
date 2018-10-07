@@ -9,7 +9,7 @@ CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
 # AT = config.ACCESS_TOKEN
 # ATS = config.ACCESS_TOKEN_SECRET
-oauth_callback = config.OAUTH_CALLBACK
+oauth_callback = config.OAUTH_CALLBACK_LOCAL
 
 tweets = {}
 
@@ -58,7 +58,7 @@ def get_tweets (access_token):
 
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 150,
+        'count': 300,
         'exclude_replies': True,
         'include_rts': False
     }
@@ -87,7 +87,6 @@ def remove_emoji(src_str):
 def assort_tweets (timelines):
     tweets = {}
     for line in timelines:
-        tweets = {}
         tweet_id = line['id_str']
         voice_id = 'voice' + line['id_str']
         text = line['text']

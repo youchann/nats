@@ -54,7 +54,7 @@ def show_select_tweets():
 @app.route('/delpac')
 def show_del_tweets():
     voiceTweets = {}
-    delTweets = session['delTweets']
+    delTweets = session.get('delTweets')
     getTwitter.del_tweets(delTweets, session['access_token'])
 
     for k, v in delTweets.items():
