@@ -61,7 +61,7 @@ def get_tweets (access_token):
 
     url = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     params = {
-        'count': 100,
+        'count': 50,
         'exclude_replies': True,
         'include_rts': False
     }
