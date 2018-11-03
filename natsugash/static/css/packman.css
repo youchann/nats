@@ -1,9 +1,9 @@
 
-.pacman {
+ .pacman {
   width: 100px;
   height: 100px;
   position: relative;
-  animation: move 5s linear infinite;
+  animation: move 3s linear infinite;
 }
 
 @keyframes move {
@@ -13,11 +13,11 @@
   }
   45% {
     transform:
-      translateX( calc(100% * 10) ) rotateY(0deg);
+      translateX(200px) rotateY(0deg);
   }
   50% {
     transform:
-      translateX( calc(100% * 10) )
+      translateX(200px)
       rotateY(180deg);
   }
   95% {
@@ -83,3 +83,4 @@
 
 body {
   background: #333;
+}
