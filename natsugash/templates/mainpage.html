@@ -15,7 +15,7 @@
             <div class="card">
               <div class="card-body">
                 <div>
-                  <input type="checkbox" name="select_tweets" value="{{ v['id'] }}" />
+                  <input type="checkbox" name="select_tweets" value="{{ k }}" />
                   <h5 class="card-title">{{ v['text'] | safe }}</h5>
                 </div>
                 <div>
@@ -37,10 +37,7 @@
         <input class="btn btn-primary" type="submit" value="決定">
       </div>
     </form>
-
   </div>
 </div>
-<!-- <div class="row">
-  <button type="button" class="btn btn-outline-info btn-audio-autoplay"><i class="fas fa-play"></i> 再生開始</button>
-</div> -->
+
 {% endblock %}

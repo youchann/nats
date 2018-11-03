@@ -1,37 +1,36 @@
 from flask import request, redirect, url_for, render_template, flash, session
-from natsugash import app, getTwitter, voicetext
+from natsugash import app, getTwitter
 import natsugash.config as config
-import os
-import glob
-import pyrebase
+import os, pyrebase, json, pprint
+import collections as cl
 
 firebase = pyrebase.initialize_app(config.FIREBASE_CONFIG)
 db = firebase.database()
-app.secret_key = '09u34gqoijalkefeqwjio4'
+app.secret_key = config.SECRET_KEY
 
 # Root
 @app.route('/')
 def show_index():
-
-    if (glob.glob('natsugash/static/voicefiles/*.wav')):
-        voicefiles = glob.glob('natsugash/static/voicefiles/*.wav')
-        for voicefile in voicefiles:
-            os.remove(voicefile)
-
+    if os.path.isfile('assorted_tweets'):
+        os.remove('assorted_tweets.json')
     oauth_url = getTwitter.oath_twitter()
-    return render_template('oauth.html', title="認証", oauth_url=oauth_url)
+    if oauth_url:
+        return render_template('oauth.html', title="ツイートパック", oauth_url=oauth_url)
+    else:
+        return render_template('errorpage.html', title="エラーページ")
 
 
 @app.route('/paci')
 def show_paci():
     access_token = getTwitter.get_access_token()
-    session['access_token'] = access_token
+    if not session.get('access_token'):
+        session['access_token'] = access_token
     if session.get('access_token'):
         getTweets = getTwitter.get_tweets(session.get('access_token'))
         if getTweets:
             tweets = getTwitter.assort_tweets(getTweets)
-            session.pop('tweets',None)
-            session['tweets'] = tweets
+            fw = open('assorted_tweets.json','w')
+            json.dump(tweets,fw,indent=2)
             return render_template('mainpage.html', tweets=tweets, title="ついーとぱっく")
         else:
             return render_template('errorpage.html')
@@ -41,12 +40,15 @@ def show_paci():
 # select
 @app.route('/selectTweets', methods=["POST"])
 def show_select_tweets():
-    delTweets = {}
+    tweets = cl.OrderedDict()
+    delTweets = cl.OrderedDict()
     selectTweetsList = request.form.getlist('select_tweets')
-    for k, v in session.get('tweets').items():
-        print('key', k)
-        print('valus', v)
-        if v['id'] in selectTweetsList:
+
+    with open('assorted_tweets.json') as f:
+        tweets = json.load(f)
+
+    for k, v in tweets.items():
+        if k in selectTweetsList:
             delTweets[k] = v
     session['delTweets'] = delTweets
     return render_template('selectTweets.html', delTweets=delTweets)
@@ -54,12 +56,8 @@ def show_select_tweets():
 # delpac
 @app.route('/delpac')
 def show_del_tweets():
-    voiceTweets = {}
     delTweets = session.get('delTweets')
     getTwitter.del_tweets(delTweets, session['access_token'])
-
-    for k, v in delTweets.items():
-        voiceTweets[k] = v
 
     db.child("tweets").push(delTweets)
     session.clear()
