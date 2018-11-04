@@ -7,7 +7,7 @@ import collections as cl
 
 CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
-oauth_callback = config.OAUTH_CALLBACK_LOCAL
+oauth_callback = config.OAUTH_CALLBACK
 
 def oath_twitter ():
     session.clear()
