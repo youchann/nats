@@ -4,16 +4,26 @@
   <h1 class="main-title">ついーとぱっく</h1>
   <div class="alert alert-success info-mogmog" role="alert">
     <h4 class="alert-heading">myjlab夏合宿チーム制作</h4>
-    <p class="mb-0">テーマは「もぐもぐ」です．選択したツイートを消す動作を無理やり「もぐもぐ」と結びつけた結果生まれたサービスです．</p>
+    <div class="alert-body">
+      <p class="mb-0 alart-text">テーマは「もぐもぐ」です．</p>
+      <p class="mb-0 alart-text">選択したツイートを消す動作を</p>
+      <p class="mb-0 alart-text">無理やり「もぐもぐ」と結びつけた結果</p>
+      <p class="mb-0 alart-text">生まれたサービスです．</p>
+    </div>
     <hr>
-    <p class="mb-0" style="font-size: 14px;">消したいツイートをパックマンに「もぐもぐ」してもらおう．</p>
-    <p class="mb-0" style="font-size: 14px;"><a href="https://github.com/ryoya247">Inotch</a> / <a href="https://github.com/yutaro1031">Yutaro</a> / <a href="https://github.com/Ayahhow">Ayahhow</a></p>
+    <p class="mb-0" style="font-size: 14px;">消したいツイートをパックマンに</p>
+    <p class="mb-0" style="font-size: 14px;">「もぐもぐ」してもらおう．</p>
+    <p class="mb-0" style="font-size: 14px;">
+      <a href="https://github.com/ryoya247">Inotch</a> /
+      <a href="https://github.com/yutaro1031">Yutaro</a> /
+      <a href="https://github.com/Ayahhow">Ayahhow</a>
+    </p>
   </div>
-  <a class="btn btn-primary" role="button" href={{oauth_url}}><img src="{{ url_for('static', filename='image/Twitterlogo.png') }}" height=30>認証</a>
   <div class="row">
     <div class="col-12">
       <div class="pacman"></div>
     </div>
   </div>
+  <a class="btn btn-primary" role="button" href={{oauth_url}}><img src="{{ url_for('static', filename='image/Twitterlogo.png') }}" height=30>認証</a>
 </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 
  .pacman {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   position: relative;
   animation: move 3s linear infinite;
 }
@@ -13,11 +13,11 @@
   }
   45% {
     transform:
-      translateX(200px) rotateY(0deg);
+      translateX(calc(100% * 3)) rotateY(0deg);
   }
   50% {
     transform:
-      translateX(200px)
+      translateX(calc(100% * 3))
       rotateY(180deg);
   }
   95% {
@@ -30,15 +30,88 @@
   }
 }
 
+@media screen and (min-width: 376px) {
+  @keyframes move {
+    0% {
+      transform:
+        translateX( 0 ) rotateY(0deg) ;
+    }
+    45% {
+      transform:
+        translateX(calc(100% * 3)) rotateY(0deg);
+    }
+    50% {
+      transform:
+        translateX(calc(100% * 3)) rotateY(180deg);
+    }
+    95% {
+      transform:
+        translateX( 0 ) rotateY(180deg);
+    }
+    100% {
+      transform:
+        translateX( 0 ) rotateY(0deg);
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  @keyframes move {
+    0% {
+      transform:
+        translateX( 0 ) rotateY(0deg) ;
+    }
+    45% {
+      transform:
+        translateX(calc(100% * 5)) rotateY(0deg);
+    }
+    50% {
+      transform:
+        translateX(calc(100% * 5)) rotateY(180deg);
+    }
+    95% {
+      transform:
+        translateX( 0% ) rotateY(180deg);
+    }
+    100% {
+      transform:
+        translateX( 0 ) rotateY(0deg);
+    }
+  }
+}
+@media screen and (min-width: 1024px) {
+  @keyframes move {
+    0% {
+      transform:
+        translateX( 0 ) rotateY(0deg) ;
+    }
+    45% {
+      transform:
+        translateX(calc(100% * 6)) rotateY(0deg);
+    }
+    50% {
+      transform:
+        translateX(calc(100% * 6)) rotateY(180deg);
+    }
+    95% {
+      transform:
+        translateX( 0% ) rotateY(180deg);
+    }
+    100% {
+      transform:
+        translateX( 0 ) rotateY(0deg);
+    }
+  }
+}
+
 .pacman:before{
   content: "";
   width: 0px;
   height: 0px;
   position: absolute;
-  border-top: calc(100px / 2) solid #ee3;
-  border-right: calc(100px / 2) solid transparent;
-  border-bottom: calc(100px / 2) solid #ee3;
-  border-left: calc(100px / 2) solid #ee3;
+  border-top: calc(80px / 2) solid #ee3;
+  border-right: calc(80px / 2) solid transparent;
+  border-bottom: calc(80px / 2) solid #ee3;
+  border-left: calc(80px / 2) solid #ee3;
   border-radius: 50%;
   animation: to-down 1s linear infinite;
 }
@@ -60,10 +133,10 @@
   width: 0;
   height: 0;
   position: absolute;
-  border-top: calc(100px / 2) solid #ee3;
-  border-right: calc(100px / 2) solid transparent;
-  border-bottom: calc(100px / 2) solid #ee3;
-  border-left: calc(100px / 2) solid #ee3;
+  border-top: calc(80px / 2) solid #ee3;
+  border-right: calc(80px / 2) solid transparent;
+  border-bottom: calc(80px / 2) solid #ee3;
+  border-left: calc(80px / 2) solid #ee3;
   border-radius: 50%;
 
   animation: to-up 1s linear infinite;

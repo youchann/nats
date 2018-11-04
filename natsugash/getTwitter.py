@@ -1,14 +1,13 @@
 from flask import Flask, render_template, redirect, url_for, request, session
 from requests_oauthlib import OAuth1Session
 from urllib.parse import parse_qsl
+import json, urllib, re, pprint, emoji
 import natsugash.config as config
-import json, urllib, re
-import pprint, emoji
 import collections as cl
 
 CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
-oauth_callback = config.OAUTH_CALLBACK
+oauth_callback = config.OAUTH_CALLBACK_LOCAL
 
 def oath_twitter ():
     session.clear()

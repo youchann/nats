@@ -8,33 +8,38 @@
       <hr>
       <p class="mb-0" style="font-size: 14px;">消したいツイートをチェックして一番下の決定ボタンをPUSH</p>
     </div>
-    <form action="selectTweets" method="POST">
+    <form action="selectTweets" id="tweetListForm" method="POST">
       {% for k, v in tweets.items() %}
         <div class="row display_tweet">
           <div class="col-12">
             <div class="card">
               <div class="card-body">
                 <div>
-                  <input type="checkbox" name="select_tweets" value="{{ k }}" />
+                  <input type="checkbox" name="select_tweets" value="{{ k }}"/>
                   <h5 class="card-title">{{ v['text'] | safe }}</h5>
                 </div>
                 <div>
+                  <ul class="tweet-media-wrapper">
                   {% if v['media_type'] == "photo" %}
                     {% for i in range(v['photo_num']) %}
-                      <img src="{{ v['media_src'][i + 1]}}" width="300px" class="media-border">
+                      <li><img src="{{ v['media_src'][i + 1]}}" class="media-border tweet-media"></li>
                     {% endfor %}
                   {% endif %}
                   {% if v['media_type'] == "video" %}
-                    <video src="{{ v['media_src'][1] }}" controls width="300px" class="media-border"></video>
+                    <li><video src="{{ v['media_src'][1] }}" controls class="media-border tweet-media"></video></li>
                   {% endif %}
+                </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
       {% endfor %}
+      <div class="col-12">
+        <div class="pacman"></div>
+      </div>
       <div class="submit-button">
-        <input class="btn btn-primary" type="submit" value="決定">
+        <input id="submit-btn" class="btn btn-primary" type="submit" value="決定">
       </div>
     </form>
   </div>
