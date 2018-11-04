@@ -2,6 +2,13 @@
 {% block body %}
 <div class="row">
   <div class="col-12">
+    <div class="alert alert-success info-mogmog" role="alert">
+      <h4 class="alert-heading">たべさすツイート</h4>
+      <p class="mb-0">あなたが選択したツイートが表示されています．</p>
+      <p class="mb-0">Twitterから削除しても良ければ，たべさすボタンをPUSH</p>
+      <hr>
+      <p class="mb-0" style="font-size: 14px;">mogmog, mogmog...</p>
+    </div>
     {% for k, v in delTweets.items() %}
     <div class="card">
       <div class="card-body">
@@ -9,14 +16,16 @@
           <h5 class="card-title">{{ v['text'] | safe }}</h5>
         </div>
         <div>
-          {% if v['media_type'] == "photo" %}
-            {% for i in range(v['photo_num']) %}
-              <img src="{{ v['media_src'][i + 1]}}" width="300px" class="media-border">
-            {% endfor %}
-          {% endif %}
-          {% if v['media_type'] == "video" %}
-            <video src="{{ v['media_src'][1] }}" controls width="300px" class="media-border"></video>
-          {% endif %}
+          <ul class="tweet-media-wrapper">
+            {% if v['media_type'] == "photo" %}
+              {% for i in range(v['photo_num']) %}
+                <li><img src="{{ v['media_src'][i + 1]}}" class="media-border tweet-media"></li>
+              {% endfor %}
+            {% endif %}
+            {% if v['media_type'] == "video" %}
+              <li><video src="{{ v['media_src'][1] }}" controls class="media-border tweet-media"></video></li>
+            {% endif %}
+          </ul>
         </div>
       </div>
     </div>
